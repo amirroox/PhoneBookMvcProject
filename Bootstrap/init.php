@@ -7,6 +7,7 @@ include BASEPATH . "vendor/autoload.php";
 
 $dotenv = Dotenv\Dotenv::createImmutable(BASEPATH);
 $dotenv->load();
+define("BASEHOST", $_ENV['HOST']);
 
 $request = new Request();
 
