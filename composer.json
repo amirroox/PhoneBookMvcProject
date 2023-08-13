@@ -1,24 +1,30 @@
 {
-    "name": "amirroox/frame-work-mvc",
-    "description": "MiniFrameWorkMVC",
-    "type": "project",
-    "license": "none",
-    "autoload": {
-        "psr-4": {
-            "App\\": "App/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Amir Roox",
-            "email": "amirroox@yahoo.com"
-        }
-    ],
-    "require": {
-        "vlucas/phpdotenv": "^5.5",
-        "hisorange/browser-detect": "^4.5",
-      "ext-json": "*",
-      "ext-pdo": "*",
-        "catfan/medoo": "^2.1"
+  "name": "amirroox/frame-work-mvc",
+  "description": "MiniFrameWorkMVC",
+  "type": "project",
+  "license": "none",
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/"
     }
+  },
+  "authors": [
+    {
+      "name": "Amir Roox",
+      "email": "amirroox@yahoo.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.5",
+    "hisorange/browser-detect": "^4.5",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "catfan/medoo": "^2.1",
+    "fakerphp/faker": "^1.23"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  }
 }

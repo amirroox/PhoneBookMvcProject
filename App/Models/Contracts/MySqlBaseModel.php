@@ -3,6 +3,7 @@ namespace App\Models\Contracts;
 
 use Medoo\Medoo;
 use PDO;
+use PDOException;
 
 class MySqlBaseModel extends BaseModel{
     public function __construct()
@@ -29,7 +30,7 @@ class MySqlBaseModel extends BaseModel{
 
             ]);
         }
-        catch (\PDOException $e){
+        catch (PDOException $e){
             echo "Connection Failed: " . $e ;
         }
     }
@@ -45,13 +46,19 @@ class MySqlBaseModel extends BaseModel{
     }
     public function get(array $columns, array $where): object
     {
-        if($columns === ["*"]) $columns = "*";
+        global $request;
+        $page = $request->getParams()['page'] ?? null;
+        if($columns == ["*"] || $columns == ['*']) $columns = '*';
+        if($where == ["*"] || $where == ['*']) $where = ["LIMIT" => [0,10]];
+        if(!empty($page) && is_numeric($page)){
+            $where = ["LIMIT" => [(($page - 1 ) * $this->pageSize), $this->pageSize]];
+        }
         $data = $this->connection->select($this->tableName, $columns, $where);
         return (object)$data;
     }
     public function readAll() :array
     {
-        return $this->connection->select($this->tableName, "*");
+        return (array)$this->get(['*'], ['*']);
     }
     public function update(array $data, $where): int
     {
