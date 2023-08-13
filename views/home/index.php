@@ -2,6 +2,7 @@
 
 use App\Utilities\Assets;
 
+$currentPage = $_GET['page'] ?? 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -283,54 +284,59 @@ use App\Utilities\Assets;
 </div>
 <!-- ======END CONTACT SECTION ======  -->
 <!-- ======START PAGINATION ======  -->
-<!--
+
 <div class="flex flex-col items-center my-12">
     <div class="flex text-gray-700">
-        <div
-            class="h-12 w-12 mr-1 flex justify-center items-center rounded-full bg-white cursor-pointer hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white">
+        <a href="?page=<?= $currentPage - 1 ?>"
+                class="h-12 w-12 mr-1 flex justify-center items-center rounded-full bg-white cursor-pointer hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white <?php if($currentPage==1) echo 'hidden' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-chevron-left w-6 h-6">
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="feather feather-chevron-left w-6 h-6">
                 <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
-        </div>
+        </a>
         <div class="flex h-12 font-medium rounded-full bg-white md:space-x-1" id="pagesNumber">
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white active:bg-blue-500 bg-blue-500 text-white  ">
-                1</div>
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white active:bg-blue-500 ">
-                2</div>
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white  ">
-                3</div>
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">
-                ...</div>
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white  ">
-                13</div>
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white  ">
-                14</div>
-            <div
-                class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white  ">
-                15</div>
-            <div
-                class="w-12 h-12 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white">
-                1</div>
+            <?php
+            /** @noinspection PhpUndefinedVariableInspection */
+             for($i = $currentPage - 2 ; $i < $currentPage ; $i++ ):
+                 if($currentPage < 2 || $i == 0) continue;
+            ?>
+            <a href="?page=<?= $i ?>"
+                    class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white active:bg-blue-500">
+                <?= $i ?>
+            </a>
+            <?php endfor; ?>
+            <a href="?page=<?= $currentPage ?>"
+               class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white active:bg-blue-500 bg-blue-500 text-white">
+                <?= $currentPage ?>
+            </a>
+            <?php
+            for($i = $currentPage + 1 ; $i <= $currentPage + 2 ; $i++ ):
+                /** @noinspection PhpUndefinedVariableInspection */
+                if($currentPage >= $Pagination || $i == $Pagination + 1) continue;
+                ?>
+                <a href="?page=<?= $i ?>"
+                   class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white active:bg-blue-500">
+                    <?= $i ?>
+                </a>
+                <?php endfor; ?>
+
+<!--            <div-->
+<!--                    class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in  rounded-full  ">-->
+<!--                ...-->
+<!--            </div>-->
+
         </div>
-        <div
-            class="h-12 w-12 ml-1 flex justify-center items-center rounded-full bg-white cursor-pointer hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white">
+        <a href="?page=<?= $currentPage + 1 ?>"
+                class="h-12 w-12 ml-1 flex justify-center items-center rounded-full bg-white cursor-pointer hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white <?php /** @noinspection PhpUndefinedVariableInspection */ if($currentPage == $Pagination) echo 'hidden' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-chevron-right w-6 h-6">
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 class="feather feather-chevron-right w-6 h-6">
                 <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
-        </div>
+        </a>
     </div>
 </div>
--->
 <!-- ======END PAGINATION ======  -->
 <script type="text/javascript" src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
 <script type="text/javascript" src="<?= Assets::loadAssets('script.js') ?>"></script>

@@ -10,11 +10,16 @@ class HomeController{
     {
         $this->Contacts = new Contacts();
         $this->Data = [
-            'Contacts' => $this->Contacts->readAll()
+            'Contacts' => $this->Contacts->readAll(),
+            'Pagination' => $this->Contacts->calculatePagination()
         ];
     }
 
     public function index(){
+        global $request;
+        $page = $request->getParams()['page'] ?? null;
+        if(!is_null($page) && ($page > $this->Data['Pagination'] || $page < 1)) # Page Exited
+            header("Location: {$_ENV['HOST']}");
         view("home.index", $this->Data);
     }
 }

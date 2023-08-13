@@ -49,7 +49,7 @@ class MySqlBaseModel extends BaseModel{
         global $request;
         $page = $request->getParams()['page'] ?? null;
         if($columns == ["*"] || $columns == ['*']) $columns = '*';
-        if($where == ["*"] || $where == ['*']) $where = ["LIMIT" => [0,10]];
+        if($where == ["*"] || $where == ['*']) $where = ["LIMIT" => [0,$this->pageSize]];
         if(!empty($page) && is_numeric($page)){
             $where = ["LIMIT" => [(($page - 1 ) * $this->pageSize), $this->pageSize]];
         }
@@ -69,5 +69,12 @@ class MySqlBaseModel extends BaseModel{
     {
         $data = $this->connection->delete($this->tableName, $where);
         return $data->rowCount();
+    }
+    public function calculatePagination(): int
+    {
+        $count = $this->connection->count($this->tableName);
+        if($count % $this->pageSize == 0) $pagePart = $count / $this->pageSize;
+        else $pagePart = (int)($count / $this->pageSize) + 1;
+        return $pagePart;
     }
 }
