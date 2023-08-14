@@ -135,7 +135,7 @@ $currentPage = $_GET['page'] ?? 1;
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="w-full" id="contactForm" method="POST" action="<?= BASEHOST . 'add/Contact'?>">
+            <form class="w-full" id="contactForm" method="POST" action="<?= BASEHOST . 'Contact/add' ?>">
                 <div class="p-6 space-y-6">
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -238,6 +238,10 @@ $currentPage = $_GET['page'] ?? 1;
                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                             Email
                         </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Action
+                        </th>
                     </tr>
                     </thead>
 
@@ -277,9 +281,9 @@ $currentPage = $_GET['page'] ?? 1;
                             </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap md:table-cell">
-                            <span class="px-2 inline-flex flex-col">
-                               <a href="?delete=<?= $value['id'] ?>">Delete</a>
-<!--                               <a>Update</a>-->
+                            <span class="px-2 inline-flex flex-col hover:bg-red-500 rounded-full">
+                                <a href='<?= BASEHOST . "Contact/delete?id={$value['id']}" ?>'>Delete</a>
+                                <!--                               <a>Update</a>-->
                             </span>
                             </td>
                         </tr>

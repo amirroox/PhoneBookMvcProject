@@ -40,6 +40,12 @@ class HomeController{
             header("Location: {$_ENV['HOST']}");
         }
     }
+
+    public function delete(){
+        $id = $this->req->getParams()['id'];
+        $this->Contacts->delete(['id' => $id]);
+        if ($id) header("Location: {$_ENV['HOST']}");
+    }
 }
 
 // Faker Test User

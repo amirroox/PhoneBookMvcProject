@@ -7,5 +7,6 @@ $Router = new Routs();
 
 $Router::get("/null", 'HomeController@index');
 $Router::get("/", 'HomeController@index');
-$Router::post("/add/Contact", 'HomeController@add');
+$Router::post("/Contact/add", 'HomeController@add');
+$Router::get("/Contact/delete", 'HomeController@delete');
 
