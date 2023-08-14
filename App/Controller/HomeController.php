@@ -43,8 +43,9 @@ class HomeController{
 
     public function delete(){
         $id = $this->req->getParams()['id'];
-        $this->Contacts->delete(['id' => $id]);
-        if ($id) header("Location: {$_ENV['HOST']}");
+        $id = $this->Contacts->delete(['id' => $id]);
+//        if ($id) header("Location: {$_ENV['HOST']}");
+        view('pages.notExcited',['currentID' => $id]);
     }
 }
 
