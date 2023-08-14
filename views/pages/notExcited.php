@@ -119,13 +119,13 @@
             if (!$currentID): ?>
                 <button class="button is-error">
                 <span>
-                    Contact Not Excited (Redirect To Home ...) !
+                    Contact Not Updated (Redirect To Home ...) !
                 </span>
                 </button>
             <?php else: ?>
                 <button class="button is-success">
                 <span>
-                    Contact Deleted (Redirect To Home ...) !
+                    Contact Updated (Redirect To Home ...) !
                 </span>
                 </button>
             <?php endif; ?>

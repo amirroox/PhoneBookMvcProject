@@ -47,6 +47,18 @@ class HomeController{
 //        if ($id) header("Location: {$_ENV['HOST']}");
         view('pages.notExcited',['currentID' => $id]);
     }
+
+    public function edit(){
+        $req = $this->req->getParams();
+        $data = [
+            'name' => $req['firstName'] . ' ' . $req['lastName'],
+            'phone' => $req['Number'],
+            'email' => $req['Email'],
+            'description' => $req['description']
+        ];
+        $id = $this->Contacts->update($data, ['id' => $req['id']]);
+        view('pages.notExcited',['currentID' => $id]);
+    }
 }
 
 // Faker Test User

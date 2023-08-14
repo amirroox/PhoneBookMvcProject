@@ -202,6 +202,93 @@ $currentPage = $_GET['page'] ?? 1;
         </div>
     </div>
 </div>
+<div id="editNewModel" aria-hidden="true" style="background-color: rgba(0,0,0,0.3);"
+     class="hidden main-modal animated fadeIn faster overflow-y-scroll overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto mx-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow ">
+            <!-- Modal header -->
+            <div class="flex justify-between items-start p-5 rounded-t border-b ">
+                <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl ">
+                    Edit Contact
+                </h3>
+                <button type="button"
+                        class="addNewModalClose text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center ">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form class="w-full" id="contactFormEdit" method="POST" action="<?= BASEHOST . 'Contact/edit' ?>">
+                <div class="p-6 space-y-6">
+                    <div class="flex flex-wrap -mx-3 mb-3">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label for="editfirstname" class="block mb-2 text-sm font-medium text-gray-900">First
+                                Name</label>
+                            <input type="text" required placeholder="John" id="editfirstname" name="firstName"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <p class="hidden mt-2 text-sm text-red-600 "> Please enter the firstname!</p>
+
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label for="editlastname" class="block mb-2 text-sm font-medium text-gray-900">Last
+                                Name</label>
+                            <input type="text" required placeholder="Doe" id="editlastname" name="lastName"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <p class=" hidden mt-2 text-sm text-red-600 "> Please enter the lastname!</p>
+
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-3">
+                        <div class="w-full px-3">
+                            <label for="editPhoneNumber" class="block mb-2 text-sm font-medium text-gray-900">Phone
+                                Number</label>
+                            <input type="tel" required placeholder="123-456-789" id="editPhoneNumber" name="Number"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <p class="hidden mt-2 text-sm text-red-600 "> Please enter the phone Number!</p>
+
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-3">
+                        <div class="w-full px-3">
+                            <label for="editEmailAddress" class="block mb-2 text-sm font-medium text-gray-900">Email
+                                Address</label>
+                            <input type="email" placeholder="amir@ro-ox.com" id="editEmailAddress" name="Email"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <p class="hidden mt-2 text-sm text-red-600 "> Please enter the Email Address!</p>
+
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-2">
+                        <div class="w-full px-3 mb-6 md:mb-0">
+                            <label for="editDescription"
+                                   class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                            <textarea id="editDescription" rows="4" name="description"
+                                      class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                                      placeholder=""></textarea>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 justify-between ">
+                    <button type="button"
+                            class="addNewModalClose text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">
+                        Cancel
+                    </button>
+                    <input type="submit" value="Update"
+                           id="contactFormSubmit"
+                           class="addNewsModalClose text-white cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- ======END ADD NEW MODAL SECTION ======  -->
 <!-- ======START FILTER MODAL SECTION ======  -->
 
@@ -281,9 +368,11 @@ $currentPage = $_GET['page'] ?? 1;
                             </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap md:table-cell">
-                            <span class="px-2 inline-flex flex-col hover:bg-red-500 rounded-full">
-                                <a href='<?= BASEHOST . "Contact/delete?id={$value['id']}" ?>'>Delete</a>
-                                <!--                               <a>Update</a>-->
+                            <span class="px-2 inline-flex flex-col">
+                                <span class="hover:bg-red-500 rounded-full px-2">
+                                    <a href='<?= BASEHOST . "Contact/delete?id={$value['id']}" ?>'>Delete</a>
+                                </span>
+                                <button class="hover:bg-red-500 rounded-full px-2" id="editNew" data='<?= json_encode($value) ?>'>Update</button>
                             </span>
                             </td>
                         </tr>

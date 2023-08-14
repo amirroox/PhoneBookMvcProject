@@ -1,27 +1,35 @@
 // Const
-const contacts = document.querySelector("#contacts");
-const searchField = document.querySelector("#searchField");
 const addNewBtn = document.getElementById("addNew");
+const editNewBtn = document.querySelectorAll("#editNew");
 const addNewModalClose = document.querySelectorAll(".addNewModalClose");
-const firstname = document.getElementById("firstname");
-const lastname = document.getElementById("lastname");
-const phonenumber = document.getElementById("phonenumber");
-const emailaddress = document.getElementById("emailaddress");
-const description = document.getElementById("grid-description");
-const contactFormSubmit = document.getElementById("contactFormSubmit");
 const addNewModel = document.getElementById("addNewModel");
-// const pagesNumber = document.getElementById("pagesNumber");
-const contactForm = document.getElementById("contactForm");
-const toggleMenu = document.getElementById("toggleMenu");
-let addNewModelOpen = false;   //Indicates the state (open/close) of Add New Model
-// let currentPage = pagesNumber.firstElementChild;  //Indicate pagination of the current table page
+const editNewModel = document.getElementById("editNewModel");
+const firstname = document.getElementById("editfirstname");
+const lastname = document.getElementById("editlastname");
+const phonenumber = document.getElementById("editPhoneNumber");
+const emailaddress = document.getElementById("editEmailAddress");
+const description = document.getElementById("editDescription");
+const contactFormEdit = document.getElementById("contactFormEdit");
 
 
-addNewBtn.addEventListener('click', () => {
+addNewBtn.addEventListener('click', () => { // Open Add Modal
     addNewModel.style.display = "unset";
 })
-addNewModalClose.forEach(button => {
+
+editNewBtn.forEach(btn => { // Open Edit Modal
+    btn.addEventListener("click", function () {
+        editNewModel.style.display = "unset";
+        let passedArray = JSON.parse(btn.getAttribute('data'));
+        firstname.value = lastname.value = passedArray.name;
+        phonenumber.value = passedArray.phone;
+        emailaddress.value = passedArray.email;
+        description.value = passedArray.description;
+        contactFormEdit.attributes.action.value += `?id=${passedArray.id}`
+    })
+});
+addNewModalClose.forEach(button => { // Close All Modal
     button.addEventListener("click", function() {
         addNewModel.style.display = "none";
+        editNewModel.style.display = "none";
     });
 });
