@@ -48,22 +48,22 @@ class MySqlBaseModel extends BaseModel{
     {
         global $request;
         $page = $request->getParams()['page'] ?? null;
+        $page = ($page <= 0) ? null : $page;
         $search = $request->getParams()['search'] ?? null;
         if($columns == ["*"] || $columns == ['*']) $columns = '*';
         if($where == ["*"] || $where == ['*']) $where = ["LIMIT" => [0,$this->pageSize]];
         if(!empty($page) && is_numeric($page)){
-            $where = ["LIMIT" => [(($page - 1 ) * $this->pageSize), $this->pageSize]];
+            $where["LIMIT"] = [(($page - 1 ) * $this->pageSize), $this->pageSize];
         }
         if(!empty($search)){
-            $where = [
-                "OR" => [
+            $where["OR"] = [
                     "name[~]" => $search,
                     "phone[~]" => $search,
                     "email[~]" => $search,
-                    "description[~]" => $search,
-                ]
+                    "description[~]" => $search
             ];
         }
+        $where["ORDER"] = [$this->orderby => "DESC"];
         $data = $this->connection->select($this->tableName, $columns, $where);
         return (object)$data;
     }

@@ -70,7 +70,7 @@ $currentPage = $_GET['page'] ?? 1;
 <div class="md:px-10 pt-2">
     <div class="text-center md:text-left">
         <p class="md:text-3xl text-xl md:pb-5 pb-3 font-semibold">
-            Contacts
+            Contacts <?php if (!empty($_GET['search'])) echo '<span class="text-blue-500">&quot;' . $_GET['search'] . '&quot;</span>' ?>
         </p>
     </div>
     <div class="grid overflow-hidden grid-cols-none grid-rows-none gap-y-3 justify-center md:flex md:justify-between">
@@ -85,7 +85,7 @@ $currentPage = $_GET['page'] ?? 1;
                 </label>
                 <button type="submit" class="absolute right-0 top-0 mt-3 mr-4 ">
                     <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" id="Capa_1" x="0px" y="0px"
                          viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
                          xml:space="preserve">
                             <path
@@ -135,21 +135,21 @@ $currentPage = $_GET['page'] ?? 1;
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="p-6 space-y-6">
-                <form class="w-full" id="contactForm">
+            <form class="w-full" id="contactForm" method="POST" action="<?= BASEHOST . 'add/Contact'?>">
+                <div class="p-6 space-y-6">
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label for="grid-firstname" class="block mb-2 text-sm font-medium text-gray-900">First
+                            <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900">First
                                 Name</label>
-                            <input type="text" placeholder="John" id="firstname"
+                            <input type="text" required placeholder="John" id="firstname" name="firstName"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                            <p class="hidden mt-2 text-sm text-red-600 "></span> Please enter the firstname!</p>
+                            <p class="hidden mt-2 text-sm text-red-600 "> Please enter the firstname!</p>
 
                         </div>
                         <div class="w-full md:w-1/2 px-3">
-                            <label for="grid-lastname" class="block mb-2 text-sm font-medium text-gray-900">Last
+                            <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900">Last
                                 Name</label>
-                            <input type="text" placeholder="Doe" id="lastname"
+                            <input type="text" required placeholder="Doe" id="lastname" name="lastName"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <p class=" hidden mt-2 text-sm text-red-600 "> Please enter the lastname!</p>
 
@@ -157,19 +157,19 @@ $currentPage = $_GET['page'] ?? 1;
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full px-3">
-                            <label for="grid-password" class="block mb-2 text-sm font-medium text-gray-900">Phone
+                            <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900">Phone
                                 Number</label>
-                            <input type="text" placeholder="123-456-7890" id="phonenumber"
+                            <input type="number" required placeholder="123-456-7890" id="phoneNumber" name="Number"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                            <p class="hidden mt-2 text-sm text-red-600 "> Please enter the phonenumber!</p>
+                            <p class="hidden mt-2 text-sm text-red-600 "> Please enter the phone Number!</p>
 
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full px-3">
-                            <label for="grid-password" class="block mb-2 text-sm font-medium text-gray-900">Email
+                            <label for="emailAddress" class="block mb-2 text-sm font-medium text-gray-900">Email
                                 Address</label>
-                            <input type="email" placeholder="amir@ro-ox.com" id="emailaddress"
+                            <input type="email" placeholder="amir@ro-ox.com" id="emailAddress" name="Email"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                             <p class="hidden mt-2 text-sm text-red-600 "> Please enter the Email Address!</p>
 
@@ -177,9 +177,9 @@ $currentPage = $_GET['page'] ?? 1;
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="w-full px-3 mb-6 md:mb-0">
-                            <label for="message"
+                            <label for="description"
                                    class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                            <textarea id="grid-description" rows="4"
+                            <textarea id="description" rows="4" name="description"
                                       class="block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                       placeholder=""></textarea>
 
@@ -187,20 +187,18 @@ $currentPage = $_GET['page'] ?? 1;
 
 
                     </div>
-                </form>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 justify-between ">
-                <button type="button"
-                        class="addNewModalClose text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">
-                    Cancel
-                </button>
-                <button type="button"
-                        id="contactFormSubmit"
-                        class="addNewsModalClose text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                    Add
-                </button>
-            </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 justify-between ">
+                    <button type="button"
+                            class="addNewModalClose text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">
+                        Cancel
+                    </button>
+                    <input type="submit" value="Add"
+                           id="contactFormSubmit"
+                           class="addNewsModalClose text-white cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -276,6 +274,12 @@ $currentPage = $_GET['page'] ?? 1;
                             <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
                             <span class="px-2 inline-flex ">
                                 <?= $value['email'] ?>
+                            </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap md:table-cell">
+                            <span class="px-2 inline-flex flex-col">
+                               <a href="?delete=<?= $value['id'] ?>">Delete</a>
+<!--                               <a>Update</a>-->
                             </span>
                             </td>
                         </tr>
