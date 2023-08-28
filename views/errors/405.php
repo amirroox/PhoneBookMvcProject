@@ -1,6 +1,6 @@
 <?php http_response_code(405) ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
