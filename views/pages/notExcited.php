@@ -70,22 +70,21 @@
         .is-success {
             --base-color: yellowgreen;
         }
-
+        .is-error {
+            --base-color: crimson;
+        }
+        /*
         .is-warnning {
             --base-color: orange;
         }
-
         .is-primary {
             --base-color: royalblue;
-        }
-
-        .is-error {
-            --base-color: crimson;
         }
 
         .is-info {
             --base-color: navy;
         }
+         */
     </style>
 </head>
 
